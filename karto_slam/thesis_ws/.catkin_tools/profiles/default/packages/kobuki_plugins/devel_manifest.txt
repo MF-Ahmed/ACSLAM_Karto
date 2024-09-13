@@ -1,0 +1,6 @@
+3dParty/kobuki_plugins
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/kobuki_plugins/cmake.lock /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/./cmake.lock
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/kobuki_plugins/share/kobuki_plugins/cmake/kobuki_pluginsConfig.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/kobuki_plugins/cmake/kobuki_pluginsConfig.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/kobuki_plugins/share/kobuki_plugins/cmake/kobuki_pluginsConfig-version.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/kobuki_plugins/cmake/kobuki_pluginsConfig-version.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/kobuki_plugins/lib/libgazebo_ros_kobuki.so /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/libgazebo_ros_kobuki.so
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/kobuki_plugins/lib/pkgconfig/kobuki_plugins.pc /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/pkgconfig/kobuki_plugins.pc

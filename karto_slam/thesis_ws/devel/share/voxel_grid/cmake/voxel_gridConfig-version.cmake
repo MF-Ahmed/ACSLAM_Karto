@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/voxel_grid/share/voxel_grid/cmake/voxel_gridConfig-version.cmake

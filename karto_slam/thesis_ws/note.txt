@@ -1,0 +1,1 @@
+karto_slam branch containing the code for the implementation with the coordination among the agents robots wait for others to reach their goals this is the Synchronous Arroach mentioned in his thesis.

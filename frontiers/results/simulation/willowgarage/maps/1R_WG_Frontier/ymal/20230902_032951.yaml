@@ -1,0 +1,7 @@
+image: /home/usr/data/catkin_ws/src/aslam_turtlebot/results/simulation/willowgarage/maps/20230902_032951.pgm
+resolution: 0.050000
+origin: [-18.473507, -20.067658, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

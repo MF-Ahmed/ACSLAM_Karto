@@ -1,0 +1,5 @@
+plotting
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/plotting/cmake.lock /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/./cmake.lock
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/plotting/share/plotting/cmake/plottingConfig-version.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/plotting/cmake/plottingConfig-version.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/plotting/share/plotting/cmake/plottingConfig.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/plotting/cmake/plottingConfig.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/plotting/lib/pkgconfig/plotting.pc /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/pkgconfig/plotting.pc

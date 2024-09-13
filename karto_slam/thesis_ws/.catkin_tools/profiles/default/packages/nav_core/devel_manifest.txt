@@ -1,0 +1,5 @@
+3dParty/navigation/nav_core
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/nav_core/cmake.lock /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/./cmake.lock
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/nav_core/share/nav_core/cmake/nav_coreConfig.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/nav_core/cmake/nav_coreConfig.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/nav_core/share/nav_core/cmake/nav_coreConfig-version.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/nav_core/cmake/nav_coreConfig-version.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/nav_core/lib/pkgconfig/nav_core.pc /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/pkgconfig/nav_core.pc

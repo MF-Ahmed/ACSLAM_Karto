@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/move_base/lib/python3/dist-packages/move_base/cfg/MoveBaseConfig.py

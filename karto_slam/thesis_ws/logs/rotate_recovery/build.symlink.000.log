@@ -1,0 +1,4 @@
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/rotate_recovery/cmake/rotate_recoveryConfig.cmake
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/rotate_recovery/cmake/rotate_recoveryConfig-version.cmake
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/librotate_recovery.so
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/pkgconfig/rotate_recovery.pc

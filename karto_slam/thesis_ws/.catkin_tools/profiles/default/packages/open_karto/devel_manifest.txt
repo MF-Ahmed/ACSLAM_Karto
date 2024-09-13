@@ -1,0 +1,6 @@
+3dParty/open_karto
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/open_karto/cmake.lock /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/./cmake.lock
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/open_karto/share/open_karto/cmake/open_kartoConfig.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/open_karto/cmake/open_kartoConfig.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/open_karto/share/open_karto/cmake/open_kartoConfig-version.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/open_karto/cmake/open_kartoConfig-version.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/open_karto/lib/libkarto.so /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/libkarto.so
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/open_karto/lib/pkgconfig/open_karto.pc /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/pkgconfig/open_karto.pc

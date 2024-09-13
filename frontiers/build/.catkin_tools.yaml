@@ -1,0 +1,6 @@
+devel_space: /home/usr/data/matteo_thesis/frontiers/devel
+install: false
+install_space: /home/usr/data/matteo_thesis/frontiers/install
+profile: default
+source_space: /home/usr/data/matteo_thesis/frontiers/src
+workspace: /home/usr/data/matteo_thesis/frontiers

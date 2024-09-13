@@ -1,0 +1,8 @@
+prefix=/home/usr/data/matteo_thesis/karto_slam/thesis_ws/install
+
+Name: slam_karto_g2o
+Description: Description of slam_karto_g2o
+Version: 0.7.3
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/usr/data/matteo_thesis/karto_slam/thesis_ws/install
+
+Name: graph_d_exploration
+Description: Description of graph_d_exploration
+Version: 1.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: message_runtime

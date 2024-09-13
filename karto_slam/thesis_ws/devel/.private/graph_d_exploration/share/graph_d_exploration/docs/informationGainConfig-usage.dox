@@ -1,0 +1,7 @@
+\subsubsection usage Usage
+\verbatim
+<node name="graph_d_exploration" pkg="graph_d_exploration" type="graph_d_exploration">
+  <param name="ig_threshold" type="double" value="0.45" />
+</node>
+\endverbatim
+

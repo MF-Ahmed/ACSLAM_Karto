@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/nav_core/share/nav_core/cmake/nav_coreConfig-version.cmake

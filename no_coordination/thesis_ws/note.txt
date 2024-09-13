@@ -1,0 +1,1 @@
+no_coordination branch containing the code for the implementation without the coordination among the agents this is the Asynchronous Approach mentioned in His thesis

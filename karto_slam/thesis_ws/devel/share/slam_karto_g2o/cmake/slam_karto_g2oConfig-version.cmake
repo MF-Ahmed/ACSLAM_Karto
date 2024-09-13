@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/slam_karto_g2o/share/slam_karto_g2o/cmake/slam_karto_g2oConfig-version.cmake

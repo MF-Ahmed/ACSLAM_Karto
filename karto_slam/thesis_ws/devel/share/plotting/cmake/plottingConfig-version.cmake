@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/plotting/share/plotting/cmake/plottingConfig-version.cmake

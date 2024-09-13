@@ -1,0 +1,4 @@
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/slam_karto_g2o/cmake/slam_karto_g2oConfig.cmake
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/slam_karto_g2o/cmake/slam_karto_g2oConfig-version.cmake
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/slam_karto_g2o/slam_karto_g2o
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/pkgconfig/slam_karto_g2o.pc

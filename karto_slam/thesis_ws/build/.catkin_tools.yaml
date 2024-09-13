@@ -1,0 +1,6 @@
+devel_space: /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel
+install: false
+install_space: /home/usr/data/matteo_thesis/karto_slam/thesis_ws/install
+profile: default
+source_space: /home/usr/data/matteo_thesis/karto_slam/thesis_ws/src
+workspace: /home/usr/data/matteo_thesis/karto_slam/thesis_ws

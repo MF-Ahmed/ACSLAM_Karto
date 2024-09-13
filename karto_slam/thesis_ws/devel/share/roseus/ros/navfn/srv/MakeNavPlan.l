@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/navfn/share/roseus/ros/navfn/srv/MakeNavPlan.l

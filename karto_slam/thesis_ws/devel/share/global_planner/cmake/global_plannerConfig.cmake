@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/global_planner/share/global_planner/cmake/global_plannerConfig.cmake

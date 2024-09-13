@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/open_karto/share/open_karto/cmake/open_kartoConfig.cmake

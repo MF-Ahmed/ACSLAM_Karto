@@ -1,0 +1,6 @@
+3dParty/navigation/rotate_recovery
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/rotate_recovery/cmake.lock /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/./cmake.lock
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/rotate_recovery/share/rotate_recovery/cmake/rotate_recoveryConfig.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/rotate_recovery/cmake/rotate_recoveryConfig.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/rotate_recovery/share/rotate_recovery/cmake/rotate_recoveryConfig-version.cmake /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/rotate_recovery/cmake/rotate_recoveryConfig-version.cmake
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/rotate_recovery/lib/librotate_recovery.so /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/librotate_recovery.so
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/rotate_recovery/lib/pkgconfig/rotate_recovery.pc /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/pkgconfig/rotate_recovery.pc

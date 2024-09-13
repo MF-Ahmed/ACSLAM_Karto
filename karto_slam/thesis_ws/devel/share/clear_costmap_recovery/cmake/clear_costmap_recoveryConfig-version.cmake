@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/clear_costmap_recovery/share/clear_costmap_recovery/cmake/clear_costmap_recoveryConfig-version.cmake

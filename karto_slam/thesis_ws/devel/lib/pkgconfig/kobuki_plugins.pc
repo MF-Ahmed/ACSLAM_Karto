@@ -1,0 +1,1 @@
+/home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/.private/kobuki_plugins/lib/pkgconfig/kobuki_plugins.pc

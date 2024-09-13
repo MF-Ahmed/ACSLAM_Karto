@@ -1,0 +1,7 @@
+image: /home/usr/data/matteo_thesis/karto_slam/thesis_ws/results/simulation/hospital/20240403_221139.pgm
+resolution: 0.050000
+origin: [-12.500130, -34.958317, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

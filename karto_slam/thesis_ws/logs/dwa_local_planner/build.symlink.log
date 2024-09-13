@@ -1,0 +1,11 @@
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/dwa_local_planner/cmake/dwa_local_plannerConfig-version.cmake
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/dwa_local_planner/cmake/dwa_local_plannerConfig.cmake
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/dwa_local_planner/docs/DWAPlannerConfig.wikidoc
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/dwa_local_planner/docs/DWAPlannerConfig-usage.dox
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/share/dwa_local_planner/docs/DWAPlannerConfig.dox
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/include/dwa_local_planner/DWAPlannerConfig.h
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/libdwa_local_planner.so
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/pkgconfig/dwa_local_planner.pc
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/python3/dist-packages/dwa_local_planner/__init__.py
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/python3/dist-packages/dwa_local_planner/cfg/DWAPlannerConfig.py
+Symlinking /home/usr/data/matteo_thesis/karto_slam/thesis_ws/devel/lib/python3/dist-packages/dwa_local_planner/cfg/__init__.py

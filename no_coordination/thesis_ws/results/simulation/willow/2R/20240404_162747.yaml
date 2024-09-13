@@ -1,0 +1,7 @@
+image: /home/usr/data/matteo_thesis/no_coordination/thesis_ws/results/simulation/willow/20240404_162747.pgm
+resolution: 0.050000
+origin: [-19.069591, -12.427752, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+
