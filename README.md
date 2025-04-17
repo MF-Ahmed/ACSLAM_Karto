@@ -1,26 +1,53 @@
 # Efficient Frontier Management for Collaborative Active SLAM
 
-In this implementation, we present the work described in our paper cited below. In autonomous robotics, a critical challenge lies
-in developing robust solutions for Active Collaborative SLAM,
-wherein multiple robots collaboratively explore and map an
-unknown environment while intelligently coordinating their
-movements and sensor data acquisitions. In this article, we
-present an efficient centralized frontier sharing approach that
-maximizes exploration by taking into account information gain
-in the merged map, distance, and reward computation among
-frontier candidates and encourages the spread of agents into
-the environment. Eventually, our method efficiently spreads
-the robots for maximum exploration while keeping SLAM
-uncertainty low. Additionally, we also present two coordination
-approaches, synchronous and asynchronous to prioritize robot
-goal assignments by the central server. The proposed method
-is implemented in ROS and evaluated through simulation and
-experiments on publicly available datasets and similar methods,
-rendering promising results.
+This repository contains the implementation of the work described in the following publication:
 
-**M. F. Ahmed, M. Maragliano, V. Frémont, C. T. Recchiuto and A. Sgorbissa, "Efficient Frontier Management for Collaborative Active SLAM," 2024 IEEE International Conference on Multisensor Fusion and Integration for Intelligent Systems (MFI), Pilsen, Czech Republic, 2024, pp. 1-7, doi: 10.1109/MFI62651.2024.10705778. **
+**M. F. Ahmed, M. Maragliano, V. Frémont, C. T. Recchiuto, and A. Sgorbissa, "Efficient Frontier Management for Collaborative Active SLAM," *2024 IEEE International Conference on Multisensor Fusion and Integration for Intelligent Systems (MFI)*, Pilsen, Czech Republic, 2024, pp. 1–7. [doi: 10.1109/MFI62651.2024.10705778](https://doi.org/10.1109/MFI62651.2024.10705778)**
 
-Kindly cite this paper if you use this implementation.
+> **Note:** If you use this implementation in your work, please cite the above paper.
+
+---
+
+## Overview
+
+In the field of autonomous robotics, a major challenge is enabling multiple robots to collaboratively explore and map an unknown environment while efficiently coordinating their actions and sensor data collection. This implementation presents a **centralized frontier-sharing strategy** designed to maximize exploration while minimizing SLAM uncertainty.
+
+Our method computes rewards for frontier candidates based on:
+- **Information gain**
+- **Distance cost**
+- **Spatial distribution of agents**
+
+This encourages a well-balanced spread of robots across the environment. For robot-goal assignments, we propose two coordination strategies:
+- **Synchronous coordination**
+- **Asynchronous coordination**
+
+The system is implemented using **ROS Noetic** and validated through simulations and experiments using publicly available datasets. Results demonstrate strong performance and scalability compared to baseline methods.
+
+---
+
+## Dependencies
+
+### System Requirements
+- **Ubuntu 20.04**  
+- **ROS Noetic**  
+  Follow the official instructions: [ROS Noetic installation](http://wiki.ros.org/noetic/Installation)
+
+### Core Libraries and Tools
+- **g2o**  
+  Install from: [https://github.com/RainerKuemmerle/g2o](https://github.com/RainerKuemmerle/g2o)
+
+- **Open Karto**  
+  Follow its official installation guide.
+
+- **ROSbot 2**  
+  Set up hardware and firmware as described in the [ROSbot 2 documentation](https://husarion.com/manuals/rosbot/)
+
+- **Kobuki Plugins**  
+  Required for compatibility with the Kobuki base.
+
+- **Additional Libraries**
+  ```bash
+  sudo apt-get install libsuitesparse-dev
 
 ## Dependencies
 - **ROS Noetic**: Follow the installation instructions [here](http://wiki.ros.org/noetic/Installation).
