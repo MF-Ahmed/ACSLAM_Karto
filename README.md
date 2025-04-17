@@ -49,18 +49,8 @@ The system is implemented using **ROS Noetic** and validated through simulations
   ```bash
   sudo apt-get install libsuitesparse-dev
 
-## Dependencies
-- **ROS Noetic**: Follow the installation instructions [here](http://wiki.ros.org/noetic/Installation).
-- **Ubuntu 20.04**: This project is designed for Ubuntu 20.04. Ensure you are using this version of Ubuntu.
-- **g2o**: Install from the official repository at [g2o GitHub](https://github.com/RainerKuemmerle/g2o).
-- **Open Karto**: Install Open Karto following its official instructions.
-- **ROSbot 2**: Ensure the hardware and firmware are set up as per the ROSbot 2 documentation.
-- **Kobuki Plugins**: Install necessary plugins for compatibility with the Kobuki base.
-- **Libraries**: 
-  ```bash
-  sudo apt-get install libsuitesparse-dev
-  ```
-## ROS Specific Dependencies
+
+## ROS Specific 
  ```bash
     sudo apt-get install ros-noetic-grid-map
     sudo apt-get install ros-noetic-move-base
