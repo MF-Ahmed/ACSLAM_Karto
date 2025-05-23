@@ -18,12 +18,12 @@ import matplotlib.pyplot as plt
 
 from constants import GRAPH_PATH_, PLAN_POINT_TH_, EXPLORING_TIME_, USE_GPU_, SHOW_DEBUG_PATH_, ODOM_COV_
 from copy import copy, deepcopy
-from functions import robot, wait_enterKey, getGraph
+from functions import *
 from weighted_pose_graph_class import weighted_pose_graph
 from graph_d_exploration.msg import PointArray, InfoMatrix, BoolArray
-from geometry_msgs.msg import Point
+from geometry_msgs.msg import PoseStamped, Pose, Point
 from visualization_msgs.msg import MarkerArray
-from std_msgs.msg import Bool, Int32
+from std_msgs.msg import Bool, Int32, Float32
 from actionlib_msgs.msg import GoalStatusArray
 
 if USE_GPU_:
@@ -236,7 +236,7 @@ def hallucinateGraph(G, p_frontier, info_radius):
 
 
 def node():
-    global frontiers_, merged_frontiers_, map_data_, robot_, rec_centroids_flag, rec_goal_flag, goal_coordinates, arrAck, status, server_status
+    global frontiers_, merged_frontiers_, map_data_, robot_, rec_centroids_flag, rec_goal_flag, goal_coordinates, arrAck, status, server_status, markerArray_pu,marker_pub   
     if SHOW_DEBUG_PATH_:
         global marker_hallucinated_graph_pub_
 
@@ -262,6 +262,10 @@ def node():
     rate = rospy.Rate(rateHz)
     rospy.Subscriber(map_topic, OccupancyGrid, mapCallBack)
     rospy.Subscriber(frontiers_topic, PointArray, frontiersCallBack)
+
+    markerArray_pub = rospy.Publisher("visualization_markerArray/EntropyPath2", MarkerArray, queue_size=10)    
+    marker_pub = rospy.Publisher("visualization_marker/EntropyPath", Marker, queue_size=10)
+    d_opt_pub = rospy.Publisher("d_optimality_publisher/Dopt", Float32, queue_size=10)      
 
     # Creating the callbacks and the subcribers
     callbacks = create_callbacks(num_robots)
@@ -421,7 +425,7 @@ def node():
         # If no edges (starting step) do not evaluate D-opt. Select random frontier
         if m < 1 or centroids == 0:
             rospy.logwarn(
-                "Graph not started yet, m < 1. Selecting goal +=[0.3,0.3].")
+                "Graph not started yet, m < 1. Selecting goal +=[0.2,0.2].")
             closer_goal = True
             graph_started = Bool()
             graph_started.data = False
@@ -433,10 +437,15 @@ def node():
             for ip in range(n_centroids):
                 # Get frontier goal
                 p_frontier = np.array([centroids[ip][0], centroids[ip][1]])
+                robotposxy = robot_.getPosition()                
+                entropy, markerArray, marker,distance =  compute_entropy(map_data_,p_frontier[0],p_frontier[1],robotposxy) 
+                inv_entropy = 1 - entropy                   
+                markerArray_pub.publish(markerArray) 
+                marker_pub.publish(marker)
 
                 # Compute hallucinated pose graph
                 G_frontier, flag = hallucinateGraph(G, p_frontier, info_radius)
-                if flag:
+                if flag or distance>350: # farhan
                     rospy.logerr(
                         f"{rospy.get_name()}: No points in plan to frontier at {format(p_frontier)}. Assigning -Inf information!!"
                     )
@@ -448,14 +457,28 @@ def node():
                     _, t = np.linalg.slogdet(L_anch.todense())
                     spann = n_frontier ** (1 / n_frontier) * \
                         np.exp(t / n_frontier)
-                    infoGain.append(spann)
+                    eta = count_digits_before_decimal(spann) 
+                    ####eta_minus1 = 10**float(eta-2) # Will tune Later 
+                    decay_factor = 0.6   # default 0.5 .. 0.05 not good(better coverage but less accuracy), 0.1 not good (less coverage but better accuracy)
+                    gamma = np.exp(-(decay_factor) * distance)
+                    #rospy.loginfo("distance = {}".format(distance))
+                    #rospy.loginfo("eta_minus1 = {}".format(eta_minus1))
+                    eta = 10**float(eta)
+                    #rospy.loginfo("eta = {}".format(eta))
+                    #rospy.loginfo("========= inv_entropy of forntier = {} is {}".format(ip,inv_entropy)) 
+                    entropy = inv_entropy*eta                    
+                    #rospy.loginfo("========= No. of Spanning trees of forntier = {} are {}".format(ip,spann))  
+                    #rospy.loginfo("========= inv_entropy*eta of forntier = {} is {}".format(ip,entropy))  
+                    #rospy.loginfo("========= Distance of forntier = {} are {}".format(ip,distance))                                             
+                    infoGain.append(spann+ entropy + gamma)
+                    #infoGain.append(spann)
 
         if robot_.getState() == 1:
             t_f_acc_decision_making += rospy.get_time() - t_0_decision_making
             rospy.logwarn("Robot is not available.")
         elif closer_goal:
             t_f_acc_decision_making += rospy.get_time() - t_0_decision_making
-            if not robot_.sendGoal(robot_.getPosition() + [0.3, 0.3]):
+            if not robot_.sendGoal(robot_.getPosition() + [0.2, 0.2]):
                 robot_.cancelGoal()
             graph_started = Bool()
             graph_started.data = True
@@ -509,15 +532,21 @@ def node():
                 # is using it
                 selected_point = goal_coordinates[0]
 
-                # Fill the arrat for the goal coordinates
+                # Fill the array for the goal coordinates
                 _goal_ = []
                 _goal_.append(selected_point.x)
                 _goal_.append(selected_point.y)
 
                 rospy.loginfo(f"{robot_name} assigned to {str(_goal_)}")
                 initial_plan_position = robot_.getPosition()
+
+
                 if not robot_.sendGoal(_goal_):
                     robot_.cancelGoal()
+
+                #winner_frontier_marker = draw_marker(centroid_record[winner_id][0],centroid_record[winner_id][1], [1,0,0],"cube",0.4)             
+                #marker_pub.publish(winner_frontier_marker)                
+
 
                 # Print log
                 rospy.loginfo(f"{robot_name} reached {str(_goal_)}")

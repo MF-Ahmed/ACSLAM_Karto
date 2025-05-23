@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import seaborn as sns
 
 # Define the directory where the data files are located
 file_path = os.path.dirname(os.path.abspath(__file__))
@@ -24,7 +25,6 @@ total_num_points_list = []
 actual_num_points_list = []
 radius_values_list = []
 percentage_values_list = []
-
 num_simulations = 0
 
 # Iterate over the data files
@@ -50,7 +50,7 @@ for file in data_files:
     percentage_values = data['percentage_values']
 
     # Extract the number of robots from the file name
-    num_robots = int(file.split('_')[2].split('.')[0])
+    num_robots = str(file.split('_')[2].split('.')[0])
     num_robots_list.append(num_robots)
 
     # Append the data to the respective lists
@@ -70,23 +70,27 @@ for file in data_files:
 
 ################################## MAP OCCUPATION ##################################
 # Plotting the data for the map occupancy
-plt.figure(figsize=(16, 9))
+
+plt.figure(figsize=(5, 5))
 
 # Plot the merged map occupation over time for each simulation
 for i in range(num_simulations):
     _simulation_number = int(data_files[i].split("_")[1])
-    plt.plot(np.array(merged_x_list[i]) - merged_x_list[i][0], (merged_y_list[i] / generated_map_area_list[i]) * 100,
-             label=f'Simulation {_simulation_number} - {num_robots_list[i]} Robots')
+    plt.plot(np.array(merged_x_list[i]) - merged_x_list[i][0], (merged_y_list[i] / merged_y_list[i][-1]) * 100,
+             label=f'Exp{_simulation_number} - {str(num_robots_list[i])}',linewidth=3)
 
-plt.xlabel('Time [s]')
-plt.ylabel('Percentage map discovered')
+plt.xlabel('Time [s]',fontsize=8)
+plt.ylabel('Percentage map discovered',fontsize=8)
+plt.xticks(fontsize=8)
+plt.yticks(fontsize=8)
+
 plt.legend()
-plt.title('Merged map occupation over time')
+#plt.title('Merged map occupation over time')
 plt.grid(True)
 
 # Since the plot concern a percentage the graph will be from 0 to 100
 plt.ylim(0, 100)
-#plt.xlim(0, 1200)
+plt.xlim(0, 200)
 
 # Adjust the figure
 plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0.2, hspace=0.4)
@@ -95,37 +99,66 @@ plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0.2, hs
 plt.show()
 
 ################################## NUM POINTS USED ##################################
-# Plotting the data for the map occupancy
+
 plt.figure(figsize=(16, 9))
 
-# Create a colormap with a sufficient number of distinct colors
-colormap = plt.cm.get_cmap('tab10', num_simulations)
+# Lists to store data for box plots
+total_points_data = []
+actual_points_data = []
+num_robots_list = []
 
-# Plot total and actual points with assigned colors
-for i, (goals, total_points) in enumerate(zip(num_goals_list, total_num_points_list)):
-    _simulation_number = int(data_files[i].split("_")[1])
-    color = colormap(i)  # Get color from the colormap based on the simulation index
-    plt.scatter(goals, total_points, marker='.', linewidths=10,
-                label=f'Simulation {_simulation_number} - Total Number of Points Detected',
-                color=color)
-    plt.scatter(goals, actual_num_points_list[i], marker='+', linewidths=10,
-                label=f'Simulation {_simulation_number} - Actual Number of Points Used',
-                color=color)
-plt.xlabel('Number of goals')
+# Process data to prepare for box plots
+for i, (_, total_points) in enumerate(zip(num_goals_list, total_num_points_list)):
+    # Append data to the corresponding lists for box plots
+    total_points_data.append(total_points)
+    actual_points_data.append(actual_num_points_list[i])
+
+    # Extract the number of robots from the file name
+    num_robots = int(data_files[i].split("_")[2])
+    num_robots_list.append(num_robots)
+
+# Create box plots with consistent styles for each simulation
+
+boxprops = dict(linewidth=2, color='black')  # Style for the box outline
+whiskerprops = dict(linewidth=2, color='black')  # Style for the whiskers
+medianprops = dict(linewidth=2, color='red')  # Style for the median line
+
+# Calculate the x-axis positions for the boxes
+x_positions_total = np.arange(1, len(total_points_data) * 4 + 1, 4)
+x_positions_actual = np.arange(2, len(actual_points_data) * 4 + 2, 4)
+
+# Create the box plots and get the artists
+total_boxes = plt.boxplot(total_points_data, positions=x_positions_total,
+                         patch_artist=True, boxprops=boxprops, whiskerprops=whiskerprops, medianprops=medianprops)
+
+actual_boxes = plt.boxplot(actual_points_data, positions=x_positions_actual,
+                          patch_artist=True, boxprops=boxprops, whiskerprops=whiskerprops, medianprops=medianprops)
+
+# Set the colors of the box plots
+for box in total_boxes['boxes']:
+    box.set_facecolor('deepskyblue')
+for box in actual_boxes['boxes']:
+    box.set_facecolor('goldenrod')
+
+# Set the labels for the x-axis based on the simulation number and number of robots
+x_labels = []
+for i, num_robots in enumerate(num_robots_list):
+    simulation_label = f'Exp {int(data_files[i].split("_")[1])}'
+    x_labels.append(f'{simulation_label}')#\n({num_robots} Robots)')
+
+plt.xticks(np.mean([x_positions_total, x_positions_actual], axis=0), x_labels)
+
+# Create custom artists for the legend
+total_patch = plt.Line2D([], [], color='deepskyblue', marker='o', markersize=10, label='Points Detected')
+actual_patch = plt.Line2D([], [], color='goldenrod', marker='o', markersize=10, label='Points Used')
+
+# Set the legend with the custom artists and mean line
+plt.legend(handles=[total_patch, actual_patch])
+
+#plt.xlabel('Experimants')
 plt.ylabel('Number of points')
-plt.yticks(range(0, np.max([np.max(y) for y in total_num_points_list])+1, 1))
-plt.legend()
-plt.title('Total and Actual number of points used')
+#plt.title('Box plots for Total and Actual number of points used')
 plt.grid(True)
-
-# Min and max for plot
-min_y = np.min([np.min(y) for y in actual_num_points_list])  # Minimum value over all simulations
-max_y = np.max([np.max(y) for y in total_num_points_list])  # Maximum value over all simulations
-
-plt.ylim(min_y - 0.5, max_y + 0.5)
-
-# Adjust the figure
-plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0.2, hspace=0.4)
 
 # Show the plot
 plt.show()
@@ -133,33 +166,38 @@ plt.show()
 
 ################################## RADIUS VALUES USED ##################################
 # Plotting the data for the map occupancy
+
 plt.figure(figsize=(16, 9))
 
-plt.hlines(1.0, xmin=num_goals[0], xmax=num_goals[-1], color='r', label='First value of radius')
+#plt.hlines(1.0, xmin=num_goals[0], xmax=num_goals[-1], color='r', label='First value of radius')
+
 for i, (goals, radius_values) in enumerate(zip(num_goals_list, radius_values_list)):
     _simulation_number = int(data_files[i].split("_")[1])
-    plt.scatter(goals, radius_values, marker='x', s=50,
-                   label=f'Simulation {_simulation_number} - Radius Values')
+
+    #plt.scatter(goals, radius_values, marker='x', s=50,
+                   #label=f'Simulation {_simulation_number} - Radius Values')
+    plt.plot(goals, radius_values)
 
 plt.xlabel('Number of goals')
 plt.ylabel('Radius Values')
 plt.legend()
-plt.title('Radius Values Used')
+plt.title('Radius Values and number of goals Used')
 plt.grid(True)
 
 # Min and max for plot
-min_y = np.min([np.min(y) for y in radius_values])  # Minimum value over all simulations
-max_y = np.max([np.max(y) for y in radius_values])  # Maximum value over all simulations
+#min_y = np.min([np.min(y) for y in radius_values])  # Minimum value over all simulations
+#max_y = np.max([np.max(y) for y in radius_values])  # Maximum value over all simulations
 
-plt.ylim(min_y - 0.25, max_y + 0.25)
+#plt.ylim(min_y - 0.25, max_y + 0.25)
 
 # Adjust the figure
-plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0.2, hspace=0.4)
+#plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0.2, hspace=0.4)
 
 # Show the plot
 plt.show()
 
 ################################## PERCENTAGE VALUES USED ##################################
+
 # Plotting the data for the map occupancy
 plt.figure(figsize=(16, 9))
 
@@ -189,6 +227,8 @@ plt.show()
 
 ################################## CPU USAGE ##################################
 # Plotting the data for the map occupancy
+
+'''
 plt.figure(figsize=(16, 9))
 
 # Plot the merged map occupation over time for each simulation
@@ -212,6 +252,7 @@ plt.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.95, wspace=0.2, hs
 plt.show()
 
 ################################## GPU USAGE ##################################
+
 if gpu_time != []:
     # Plotting the data for the map occupancy
     plt.figure(figsize=(16, 9))
@@ -223,7 +264,7 @@ if gpu_time != []:
                 label=f'Simulation {_simulation_number} - GPU Usage over time with {num_robots_list[i]} Robots')
         plt.plot(np.array(gpu_time_list[i]) - gpu_time_list[i][0], gpu_memory_list[i],
                 label=f'Simulation {_simulation_number} - GPU Memory Usage over time with {num_robots_list[i]} Robots')
-
+        
     plt.xlabel('Time [s]')
     plt.ylabel('Percentage GPU used')
     plt.legend()
@@ -237,3 +278,4 @@ if gpu_time != []:
 
     # Show the plot
     plt.show()
+'''

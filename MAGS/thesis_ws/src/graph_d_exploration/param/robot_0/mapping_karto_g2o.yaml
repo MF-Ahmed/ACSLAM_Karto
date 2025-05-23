@@ -50,4 +50,4 @@ use_response_expansion: false                   # default false
 # Backend params
 use_robust_kernel: false
 
-graph_dir: /home/usr/data/matteo_thesis/MAGS/thesis_ws/src/graph/graph_0.g2o
+graph_dir: /home/farhan/data/ros1_ws/src/thesis_ws/src/graph/graph_0.g2o

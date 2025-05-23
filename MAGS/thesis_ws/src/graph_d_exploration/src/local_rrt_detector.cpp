@@ -232,7 +232,7 @@ int main(int argc, char **argv){
   			while (temp == 0){
     			try{
       			temp = 1;
-      			listener.lookupTransform("/map", base_frame_topic , ros::Time(0), transform);
+      			listener.lookupTransform(map_topic, base_frame_topic , ros::Time(0), transform);
     			}
     			catch (tf::TransformException ex){
       			temp = 0;

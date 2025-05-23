@@ -1,0 +1,7 @@
+image: /home/usr/data/catkin_ws/src/thesis_ws/results/simulation/Hospital/maps/20250512_194047.pgm
+resolution: 0.050000
+origin: [-12.505806, -17.157809, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

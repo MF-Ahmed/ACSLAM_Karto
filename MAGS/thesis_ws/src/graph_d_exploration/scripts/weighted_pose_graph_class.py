@@ -6,10 +6,8 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Include modules~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-import rospy
 import networkx as nx
 import numpy as np
-
 from sklearn.neighbors import NearestNeighbors
 from operator import itemgetter
 
@@ -306,6 +304,7 @@ class weighted_pose_graph:
     # - none, only plots the XY trajectory
     # - draw_LC_simple, also plots the starting point and the LC locations
     # - draw_LC_complex, also plots LC connections
+    
     def plot_graph(self, label='Data', color='Blue', draw_LC_simple=False, draw_LC_complex=False):
         if self.graph is not None:
             nodes = self.graph.nodes.data('pose')
@@ -347,13 +346,16 @@ class weighted_pose_graph:
         graph_marker = MarkerArray()
         graph_marker.markers.clear()
         id_markers = 1
+
         n = self.get_no_nodes()
 
         all_t = nx.get_node_attributes(self.graph, 'pose')
         # Add vertices
         for i in range(1, n):
-            vertex_marker = createMarker(_namespace, mtype="sphere", frame=global_frame, ns="graph_ns", colors=[255, 0, 0],lifetime=15, alpha=1.0, scale=0.1)                  
+            vertex_marker = createMarker(_namespace, mtype="sphere", frame=global_frame, ns="graph_ns", colors=[255, 255, 0],
+                                         lifetime=15, alpha=1.0, scale=0.1)
             vertex_marker.id = id_markers
+
             if i in all_t:
                 t = all_t[i]
                 vertex_marker.pose.position.x = t[0]

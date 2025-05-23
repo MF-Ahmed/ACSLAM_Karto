@@ -1,0 +1,7 @@
+image: /home/usr/data/catkin_ws/src/thesis_ws/results/simulation/WillowGarage/maps/20230826_204254.pgm
+resolution: 0.050000
+origin: [-19.100527, -12.416339, 0.000000]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196
+

@@ -30,15 +30,13 @@ class ChoosePointsServer:
         rospy.loginfo('Choose Points Server started')
 
     def execute_callback(self, goal):
-        rospy.loginfo(
-            f'Received lists points from client {goal.client_id}')
+        rospy.loginfo(f'Received lists points from client {goal.client_id}')
 
         result = ChooseGoalResult()
         # Take the result and cast it with the type chosen in the msg
-        result.goals = self.select_points(
-            goal.matrix.data, goal.rows)
+        result.goals = self.select_points(goal.matrix.data, goal.rows)
 
-        rospy.loginfo('Chosen goal forthe current agent.')
+        rospy.loginfo('Chosen goal for the current agent.')
         self.server.set_succeeded(result)
 
         if self.server.is_preempt_requested():
@@ -49,12 +47,19 @@ class ChoosePointsServer:
             self.server.set_aborted()
 
     def select_points(self, matrix_, num_rows):
+
+        rospy.loginfo("Select point got Matix = {}".format(matrix_))
+        rospy.loginfo("Select point got num_rows = {}".format(num_rows))
+
         # Feedback message
+        rospy.loginfo("matrix before reshaping is  = {}".format(matrix_))
         feedback_msg = ChooseGoalFeedback()
         # Array to pass the goal
         _goal_arr_ = []
         # Reshape the matrix
         matrix = np.array(matrix_).reshape(np.sum(num_rows), 3)
+        rospy.loginfo("matrix after reshaping is  = {}".format(matrix))
+        
         if matrix[:, 0] != []:
             # Point for the goal
             p = Point2D()
@@ -62,7 +67,7 @@ class ChoosePointsServer:
             # TODO update the reward if the chosen goal array has already come goals inside
             if chosen_coords != []:
                 rospy.loginfo('Updating the reward for the next goals according to the already chosen ones ... ')
-                #matrix = self.update_rewards(chosen_coords, matrix)
+                matrix = self.update_rewards(chosen_coords, matrix)
 
             # Get indices of maximum reward in submatrix
             max_reward_idx = np.argmax(matrix[:, 0])

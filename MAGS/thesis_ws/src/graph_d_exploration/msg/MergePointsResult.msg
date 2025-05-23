@@ -2,4 +2,3 @@
 # Define the action result message
 Point2D[] merged_points
 float32 radius_used
-float32 percentage_used

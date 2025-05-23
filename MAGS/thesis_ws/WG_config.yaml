@@ -1,0 +1,11 @@
+num_robots: 3
+
+
+paths:
+  map_saver_command: "rosrun map_server map_saver -f /home/usr/data/catkin_ws/src/thesis_ws/results/simulation/WillowGarage/maps/$map_$(date +'%Y%m%d_%H%M%S')"
+  maps_dir: "/home/usr/data/catkin_ws/src/thesis_ws/results/simulation/WillowGarage/maps"
+  g2o_dir: "/home/usr/data/catkin_ws/src/thesis_ws/src/graph"
+  plotting_dir: "/home/usr/data/catkin_ws/src/thesis_ws/src/plotting/data"
+  plot_g2o_dir: "/home/usr/data/catkin_ws/src/thesis_ws/results/simulation/plot_g2o"
+
+

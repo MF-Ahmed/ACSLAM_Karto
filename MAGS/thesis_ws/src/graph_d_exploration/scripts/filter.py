@@ -181,11 +181,15 @@ def node():
 
     rospy.loginfo(namespace+"/filter received frontiers.")
 
-    points = createMarker(namespace, frame=map_data_.header.frame_id,
-                          ns="raw_frontiers", colors=[255, 255, 0.0], scale=0.2)
-    points_clust = createMarker(
-        namespace, frame=map_data_.header.frame_id, ns="filtered_frontiers", colors=[0.0, 255, 0.0])
+    points = createMarker(namespace, frame=map_data_.header.frame_id, ns="raw_frontiers", colors=[255, 225, 10.0], scale=0.2)
 
+  
+
+    #elif namespace  == 'robot_2':
+    #points_clust = createMarker(namespace, frame=map_data_.header.frame_id, ns="filtered_frontiers", colors=[150.0, 255, 0.0])
+    #else namespace  == 'robot_3':
+         #points_clust = createMarker(namespace, frame=map_data_.header.frame_id, ns="filtered_frontiers", colors=[200.0, 255, 0.0])                     
+  
     p = Point()
     p.z = 0
 
@@ -205,6 +209,15 @@ def node():
         tempPointStamped.header.frame_id = map_data_.header.frame_id
         tempPointStamped.header.stamp = rospy.Time(0)
         tempPointStamped.point.z = 0.0
+
+        if namespace  == 'robot_0':
+            points_clust = createMarker(namespace, frame=map_data_.header.frame_id, ns="filtered_frontiers", colors=[50.0, 255, 0.0])            
+        elif namespace  == 'robot_1':
+            points_clust = createMarker(namespace, frame=map_data_.header.frame_id, ns="filtered_frontiers", colors=[100.0, 255, 100.0])
+        elif namespace  == 'robot_2':
+            points_clust = createMarker(namespace, frame=map_data_.header.frame_id, ns="filtered_frontiers", colors=[150.0, 255, 50.0])
+        else: 
+            points_clust = createMarker(namespace, frame=map_data_.header.frame_id, ns="filtered_frontiers", colors=[200.0, 255, 150.0])           
 
         # frontiers_ = deepcopy(centroids)
 

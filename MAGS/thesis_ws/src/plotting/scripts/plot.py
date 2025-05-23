@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 import psutil
+import pynvml
 import GPUtil
 from graph_d_exploration.msg import PointArray
 from nav_msgs.msg import OccupancyGrid
@@ -13,7 +14,6 @@ from std_msgs.msg import Int32, Float32
 from rosgraph_msgs.msg import Log
 
 USE_GPU_ = 1
-synch_asynch_nolistlimits = 'MAGS'
 
 # Get the absolute path to the package
 package_path = os.path.dirname(os.path.abspath(__file__))
@@ -21,15 +21,12 @@ package_path = os.path.dirname(os.path.abspath(__file__))
 # File for the values of the environment
 filename_area = os.path.join(package_path, '..', 'config', 'filename_area.txt')
 # Key to look or the specific environment
+# key = 'hospital'
 key = 'willowgarage'
-global global_env
-
-global_env = key
 
 # Retrieve the number of agents as parameter
 # Modify the value before running
-
-num_robots = rospy.get_param('~num_robots', 2)
+num_robots = rospy.get_param('~num_robots', 3)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Callbacks~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -108,7 +105,7 @@ def monitor_gpu_usage():
 
 
 # Function to save the data for each simulation
-def save_simulation_data(simulation_id,key):
+def save_simulation_data(simulation_id):
     data = {
         'merged_x': merged_x,
         'merged_y': merged_y,
@@ -124,16 +121,13 @@ def save_simulation_data(simulation_id,key):
         'radius_values': radius_values,
         'percentage_values': percentage_values
     }
-    print(f" got key as {key}")
     
     # Create the data directory if it doesn't exist
-    data_directory = os.path.join(package_path, '..', 'data', str(key))
-
+    data_directory = os.path.join(package_path, '..', 'data')
     if not os.path.exists(data_directory):
         os.makedirs(data_directory)
     
-    filename = os.path.join(data_directory, f'data-{simulation_id}-{key}--{synch_asynch_nolistlimits}.npy')
-    print(filename)
+    filename = os.path.join(data_directory, f'data-{simulation_id}.npy')
     np.save(filename, data)
 
 def get_area_value(filename, key):
@@ -155,13 +149,11 @@ def get_area_value(filename, key):
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class PlotterNode(object):
     def __init__(self, simulation_id):
-        global merged_x, merged_y, generated_map_area, cpu_percentages, gpu_percentages, gpu_memory, cpu_time, gpu_time, actual_num_points, total_num_points, num_goals, radius_values, percentage_values, global_env 
+        global merged_x, merged_y, generated_map_area, cpu_percentages, gpu_percentages, gpu_memory, cpu_time, gpu_time, actual_num_points, total_num_points, num_goals, radius_values, percentage_values
 
         self.simulation_id = simulation_id
-        self.global_env = global_env
 
         rospy.init_node('plotter_node', anonymous=False)
-        rospy.loginfo(f"plotter node started with ID : {self.simulation_id} with Environment = {self.global_env}")
 
         # Get initial time in seconds
         self.initial_time = rospy.Time.now().to_sec()
@@ -220,7 +212,7 @@ class PlotterNode(object):
         rospy.loginfo("Shutting down the plotter node...")
 
         # Save the data for the current simulation
-        save_simulation_data(self.simulation_id, self.global_env)
+        save_simulation_data(self.simulation_id)
 
         self.plot_figure()
 
@@ -265,7 +257,6 @@ class PlotterNode(object):
 
 
 if __name__ == '__main__':
-    
     # Create a unique ID for each simulation
     filename = os.path.join(package_path, '..', 'config', 'number_simulations.txt')
     with open(filename, 'r') as file:
@@ -276,3 +267,4 @@ if __name__ == '__main__':
         file.write(str(n + 1))
 
     node = PlotterNode(current_simulation_id)
+    rospy.loginfo("Plotter Node Started")

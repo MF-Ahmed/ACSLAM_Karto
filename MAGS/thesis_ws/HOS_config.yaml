@@ -1,0 +1,10 @@
+num_robots: 3
+
+
+paths:
+  map_saver_command: "rosrun map_server map_saver -f /home/farhan/data/ros1_ws/src/thesis_ws/results/simulation/Hospital/maps/$map_$(date +'%Y%m%d_%H%M%S')"
+  maps_dir: "/home/farhan/data/ros1_ws/src/thesis_ws/results/simulation/Hospital/maps"
+  g2o_dir: "/home/farhan/data/ros1_ws/src/thesis_ws/src/graph"
+  plotting_dir: "/home/farhan/data/ros1_ws/src/thesis_ws/src/plotting/data"
+  plot_g2o_dir: "/home/farhan/data/ros1_ws/src/thesis_ws/results/simulation/plot_g2o_hos"
+

@@ -1,12 +1,13 @@
 <launch>
+    <param name="use_sim_time" value="true"/>
     <!-- ################################ ACTION SERVER ################################ -->
-    <node pkg="graph_d_exploration" type="server_merge.py" name="merge_points" output="screen"/>
+     <node pkg="graph_d_exploration" type="server_merge.py" name="merge_points" output="screen"/> 
 
     <!-- ################################ ACTION SERVER ################################ -->
-    <node pkg="graph_d_exploration" type="server_choose.py" name="choose_points" output="screen"/>
+     <node pkg="graph_d_exploration" type="server_choose.py" name="choose_points" output="screen"/> 
 
     <!-- ################################ MANAGER ################################ -->
     <node pkg="graph_d_exploration" type="manager.py" name="manager" output="screen">
-        <param name="num_robots" value="2"/>
+        <param name="num_robots" value="3"/>
     </node>
 </launch>

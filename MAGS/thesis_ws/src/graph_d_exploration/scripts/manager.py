@@ -171,10 +171,6 @@ def node():
     # Publisher for the radius value
     radius_value_publisher = rospy.Publisher(
         'radius_value', Float32, queue_size=10)
-    
-    # Publisher for the percentage value
-    percentage_value_publisher = rospy.Publisher(
-        'percentage_value', Float32, queue_size=10)
 
 
     rate = 0.25
@@ -230,15 +226,15 @@ def node():
             # Publish True in the position of the robot that can use the server
             central_server_occupied_pub.publish(array_allow)
 
-            rospy.loginfo("Server Busy")
-
             # Wait until at least one of the agents published the frontiers
             while not any(recc):
                 continue
 
             # Publish a False for the allow.
-            #array_allow = [False] * num_robots
-            #central_server_occupied_pub.publish(array_allow)
+            array_allow = [False] * num_robots
+            central_server_occupied_pub.publish(array_allow)
+
+            rospy.loginfo("Server Busy")
 
             rospy.loginfo('Sending goal for merging')
 
@@ -272,7 +268,6 @@ def node():
             # Print log
             rospy.loginfo('Publishing result')
             merged_centroids_pub.publish(tempPointArray.points)
-            percentage_value_publisher.publish(result.percentage_used)
             radius_value_publisher.publish(result.radius_used)
 
             # Reset the flags
@@ -320,10 +315,6 @@ def node():
 
             else:
                 rospy.loginfo(f"Graph robot_{str(index_robot)} not started yed. Waiting")
-
-            array_allow = [False] * num_robots
-            central_server_occupied_pub.publish(array_allow)
-            rospy.loginfo("Server Free")
 
         rospy.sleep(rate)
 

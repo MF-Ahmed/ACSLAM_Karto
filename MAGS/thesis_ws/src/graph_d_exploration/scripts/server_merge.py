@@ -15,7 +15,7 @@ import actionlib
 
 import itertools
 from graph_d_exploration.msg import MergePointsAction, MergePointsResult, MergePointsFeedback
-from constants import RADIUS_BORDER_, PERCENTAGE_UNKNOWN_, NUMBER_POINTS_LIST_, MIN_NUMBER_POINTS_LIST_
+from constants import RADIUS_BORDER_, PERCENTAGE_UNKNOWN_, NUMBER_POINTS_LIST_
 from nav_msgs.msg import OccupancyGrid
 from std_msgs.msg import Float32
 
@@ -54,7 +54,7 @@ class MergePointsServer:
         # Print log messages
         rospy.loginfo('Server received all points from client')
         result = MergePointsResult()
-        result.merged_points, result.percentage_used, result.radius_used = self.merge_points(goal.points)
+        result.merged_points, result.radius_used = self.merge_points(goal.points)
         rospy.loginfo(
             f'Merged {len(result.merged_points)} points from all clients')
         self.server.set_succeeded(result)
@@ -71,51 +71,33 @@ class MergePointsServer:
         feedback_msg = MergePointsFeedback()
         feedback_msg.percent_completed = 0
 
-        if len(list) == 0:
-            return [], PERCENTAGE_UNKNOWN_, RADIUS_BORDER_
-        else:
-            # remove duplicate points with the same x and y coordinates
-            unique_points = []
-            for point in list:
-                # Check that the point is near a border and has enough
-                # unknown cells in its nearby
-                #if self.is_near_border(point, merged_map, PERCENTAGE_UNKNOWN_, RADIUS_BORDER_):
-                    # Check that the point has not alrady been chosen
+        radius_ = RADIUS_BORDER_
+
+        # remove duplicate points with the same x and y coordinates
+        unique_points = []
+        for point in list:
+            # Check that the point is near a border and has enough
+            # unknown cells in its nearby
+            if self.is_near_border(point, merged_map, radius_):
+                # Check that the point has not alrady been chosen
                 if point not in unique_points:
                     unique_points.append(point)
-            
-            radius_ = RADIUS_BORDER_
-            percentage_ = PERCENTAGE_UNKNOWN_
-            '''
-            while(len(unique_points) <= MIN_NUMBER_POINTS_LIST_ or len(unique_points) >= NUMBER_POINTS_LIST_+1):
-                if len(unique_points) <= MIN_NUMBER_POINTS_LIST_:
-                    rospy.logwarn(f'Recomputing list since no points found (points found {len(unique_points)}).')
-                    _unique_points_ = list
-                    unique_points = []
-                    # decrease the percentage to use fewer points
-                    percentage_ -= 10.0
-                    # Perform the computation with a higher percentage
-                    for point in _unique_points_:
-                        if self.is_near_border(point, merged_map, percentage_, RADIUS_BORDER_):
-                            if point not in unique_points:
-                                unique_points.append(point)
-                elif len(unique_points) >= NUMBER_POINTS_LIST_+1:
-                    rospy.logwarn(f'Updating list: currently {len(unique_points)} points.')
-                    _unique_points_ = unique_points
-                    unique_points = []
-                    # increase the radius to use fewer points
-                    radius_ += 0.25
-                    # Perform the computation with a higher percentage
-                    for point in _unique_points_:
-                        if self.is_near_border(point, merged_map, PERCENTAGE_UNKNOWN_, radius_):
-                            if point not in unique_points:
-                                unique_points.append(point)       
-            '''
-            
 
-            return unique_points, percentage_, radius_
+        while(len(unique_points) >= NUMBER_POINTS_LIST_):
+            rospy.logwarn(f'Recomputin list: currently {len(unique_points)} points.')
+            _unique_points_ = unique_points
+            unique_points = []
+            # increase the radius to use fewer points
+            radius_ += 0.25
+            # Perform the computation with a higher percentage
+            for point in _unique_points_:
+                if self.is_near_border(point, merged_map, radius_):
+                    if point not in unique_points:
+                        unique_points.append(point)
 
-    def is_near_border(self, point, merged_map, percentage, radius):
+        return unique_points, radius_
+
+    def is_near_border(self, point, merged_map, radius):
         grid = merged_map.data
         if merged_map.info.resolution:
             resolution = merged_map.info.resolution
@@ -159,7 +141,7 @@ class MergePointsServer:
 
             # Check if the unknown percentage meets the desired threshold
             # and return the condition
-            return unknown_percentage >= percentage
+            return unknown_percentage >= PERCENTAGE_UNKNOWN_
 
         return False
 
